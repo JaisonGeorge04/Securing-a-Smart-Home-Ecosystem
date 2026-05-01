@@ -3,7 +3,6 @@
    All interactive behaviour lives here.
 ═══════════════════════════════════════════════════ */
 
-
 /* ── PAGE INIT ────────────────────────────────────
    Runs once when the page has fully loaded.
 ─────────────────────────────────────────────────── */
@@ -52,7 +51,6 @@ function logout() {
   sessionStorage.removeItem('isAuthenticated');
   window.location.href = 'login.html';
 }
-
 
 
 /* ── SECTION A: MAIN TAB SWITCHING ──────────────
