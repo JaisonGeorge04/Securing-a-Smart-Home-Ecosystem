@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Home Security Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Authentication Check: Redirect to login if not authenticated
+    if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.9"/>
+            <rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.5"/>
+            <rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.5"/>
+            <rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.9"/>
+          </svg>
+        </span>
+        <span class="logo-text">SecureHome</span>
+      </div>
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span class="status-label">Network monitored</span>
+        <button id="logoutBtn" class="logout-btn" onclick="logout()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN WRAPPER ───────────────────────────────── -->
+  <main class="main">
+
+    <!-- Page title -->
+    <div class="page-title">
+      <h1>Security Hub</h1>
+      <p class="page-subtitle">Smart home protection dashboard</p>
+    </div>
+
+    <!-- ── NAV TABS ──────────────────────────────────── -->
+    <nav class="nav">
+      <button class="nav-btn active" onclick="showSection('posture', this)">
+        <span class="nav-letter">A</span>
+        <span class="nav-label">Security Posture</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('threats', this)">
+        <span class="nav-letter">B</span>
+        <span class="nav-label">Threat Detection</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('devices', this)">
+        <span class="nav-letter">C</span>
+        <span class="nav-label">Device Management</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('education', this)">
+        <span class="nav-letter">D</span>
+        <span class="nav-label">User Education</span>
+      </button>
+    </nav>
+
+    <!-- ════════════════════════════════════════════════
+         SECTION A — SECURITY POSTURE
+    ═════════════════════════════════════════════════ -->
+    <section id="sec-posture" class="section active">
+
+      <!-- Metric cards -->
+      <div class="metric-grid">
+        <div class="metric-card">
+          <p class="metric-label">Network score</p>
+          <p class="metric-val" style="color: var(--amber)">74</p>
+          <div class="metric-bar"><div class="metric-fill" style="width:74%; background: var(--amber)"></div></div>
+        </div>
+        <div class="metric-card">
+          <p class="metric-label">Devices hardened</p>
+          <p class="metric-val">9<span class="metric-of">/14</span></p>
+          <div class="metric-bar"><div class="metric-fill" style="width:64%; background: var(--amber)"></div></div>
+        </div>
+        <div class="metric-card">
+          <p class="metric-label">Firmware current</p>
+          <p class="metric-val">11<span class="metric-of">/14</span></p>
+          <div class="metric-bar"><div class="metric-fill" style="width:78%; background: var(--green)"></div></div>
+        </div>
+        <div class="metric-card">
+          <p class="metric-label">Active threats</p>
+          <p class="metric-val" style="color: var(--red)">2</p>
+          <div class="metric-bar"><div class="metric-fill" style="width:14%; background: var(--red)"></div></div>
+        </div>
+      </div>
+
+      <!-- System Status Panel -->
+      <div class="system-status-panel" style="margin-bottom: 36px;">
+        <div class="section-title-row">
+          <h2 class="section-heading">System Status</h2>
+        </div>
+        <div class="metric-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="metric-card" style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite;"></div>
+            <div>
+              <p class="metric-label" style="margin-bottom: 4px;">Monitoring</p>
+              <p class="metric-val" style="font-size: 18px; margin: 0;">Active</p>
+            </div>
+          </div>
+          <div class="metric-card" style="display: flex; align-items: center; gap: 12px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+            <div>
+              <p class="metric-label" style="margin-bottom: 4px;">Devices Connected</p>
+              <p class="metric-val" style="font-size: 18px; margin: 0;" id="status-device-count">0</p>
+            </div>
+          </div>
+          <div class="metric-card" style="display: flex; align-items: center; gap: 12px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <div>
+              <p class="metric-label" style="margin-bottom: 4px;">Security Level</p>
+              <p class="metric-val" style="font-size: 18px; margin: 0; color: var(--amber);">Medium</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Controls Panel -->
+      <div class="controls-panel">
+        <div class="section-title-row">
+          <h2 class="section-heading">Active Security Controls</h2>
+        </div>
+        <div class="controls-grid">
+          <div class="control-card">
+            <div class="control-info">
+              <span class="control-name">Network Firewall</span>
+              <span class="control-desc">Deep-packet inspection and port blocking</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggle-firewall" checked onchange="toggleControl('firewall', this)">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="control-card">
+            <div class="control-info">
+              <span class="control-name">Intrusion Detection System (IDS)</span>
+              <span class="control-desc">Anomaly detection & alert generation</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggle-ids" checked onchange="toggleControl('ids', this)">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="control-card">
+            <div class="control-info">
+              <span class="control-name">Auto Device Isolation</span>
+              <span class="control-desc">Quarantine compromised devices automatically</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggle-isolation" onchange="toggleControl('isolation', this)">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security layers (collapsible) -->
+      <div class="section-title-row" style="margin-top: 36px;">
+        <h2 class="section-heading">Defence layers</h2>
+        <span class="section-hint">Click to expand</span>
+      </div>
+
+      <div class="layer-list">
+
+        <div class="layer">
+          <div class="layer-header" onclick="toggleLayer(this)">
+            <span class="layer-sev sev-critical"></span>
+            <span class="layer-name">Network perimeter</span>
+            <span class="layer-badge badge-critical">2 issues</span>
+            <span class="layer-arrow">›</span>
+          </div>
+          <div class="layer-body">
+            <p class="layer-body-label">Current gaps</p>
+            <ul>
+              <li>Default router admin credentials unchanged on 2 devices</li>
+              <li>UPnP enabled — automatically exposes internal ports</li>
+            </ul>
+            <p class="layer-body-label" style="margin-top:12px">Recommended fixes</p>
+            <ul>
+              <li>Enable WPA3 encryption on all Wi-Fi networks</li>
+              <li>Create a separate VLAN or guest network for IoT devices</li>
+              <li>Disable UPnP; use manual port forwarding only</li>
+              <li>Enable DNS-over-HTTPS (DoH) to prevent DNS spoofing</li>
+              <li>Deploy a firewall with deep-packet inspection</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="layer">
+          <div class="layer-header" onclick="toggleLayer(this)">
+            <span class="layer-sev sev-warning"></span>
+            <span class="layer-name">Device hardening</span>
+            <span class="layer-badge badge-warning">moderate</span>
+            <span class="layer-arrow">›</span>
+          </div>
+          <div class="layer-body">
+            <ul>
+              <li>Change default usernames and passwords on every device</li>
+              <li>Disable unused services (Telnet, FTP — prefer SSH/HTTPS)</li>
+              <li>Enable automatic firmware updates or check monthly</li>
+              <li>Use device allowlisting — new devices require approval</li>
+              <li>Physically secure high-value devices (NAS, hub controllers)</li>
+              <li>Disable remote access on devices that don't need it</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="layer">
+          <div class="layer-header" onclick="toggleLayer(this)">
+            <span class="layer-sev sev-ok"></span>
+            <span class="layer-name">Data &amp; privacy</span>
+            <span class="layer-badge badge-ok">good</span>
+            <span class="layer-arrow">›</span>
+          </div>
+          <div class="layer-body">
+            <ul>
+              <li>Encrypt local storage on NAS and hub devices (AES-256)</li>
+              <li>Audit cloud data-sharing settings per device</li>
+              <li>Enable two-factor authentication on all cloud accounts</li>
+              <li>Regularly purge motion/audio logs from cameras and speakers</li>
+              <li>Review app permissions — deny microphone/camera when not essential</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="layer">
+          <div class="layer-header" onclick="toggleLayer(this)">
+            <span class="layer-sev sev-info"></span>
+            <span class="layer-name">Emerging threat mitigations</span>
+            <span class="layer-badge badge-info">proactive</span>
+            <span class="layer-arrow">›</span>
+          </div>
+          <div class="layer-body">
+            <ul>
+              <li>Validate firmware hashes before installation</li>
+              <li>Monitor unusual outbound connections from IoT devices</li>
+              <li>Segment AI assistants (Alexa, Google) onto isolated VLAN</li>
+              <li>Use a VPN for remote home access — avoid direct port exposure</li>
+              <li>Subscribe to CVE feeds for your device brands</li>
+              <li>Disable voice-activation when not home using physical mute buttons</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /.layer-list -->
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         SECTION B — THREAT DETECTION
+    ═════════════════════════════════════════════════ -->
+    <section id="sec-threats" class="section">
+
+      <div class="threat-grid">
+
+        <div class="threat-card">
+          <div class="threat-top">
+            <span class="threat-dot dot-critical"></span>
+            <span class="threat-sev-label">Critical</span>
+          </div>
+          <h3 class="threat-name">Port scanning / reconnaissance</h3>
+          <p class="threat-desc">Detect with network IDS. Alert on &gt;50 SYN packets/sec from a single internal host. Auto-isolate the device and notify the homeowner.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-top">
+            <span class="threat-dot dot-critical"></span>
+            <span class="threat-sev-label">Critical</span>
+          </div>
+          <h3 class="threat-name">Botnet enrollment (Mirai)</h3>
+          <p class="threat-desc">Watch for outbound IRC or C2 traffic on non-standard ports. Block unknown destinations and reflash device firmware on detection.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-top">
+            <span class="threat-dot dot-warning"></span>
+            <span class="threat-sev-label">High</span>
+          </div>
+          <h3 class="threat-name">Credential brute-forcing</h3>
+          <p class="threat-desc">Enforce lockout after 5 failed logins. Monitor auth logs. Use fail2ban on hub servers. Push notification to user within 60 seconds.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-top">
+            <span class="threat-dot dot-warning"></span>
+            <span class="threat-sev-label">High</span>
+          </div>
+          <h3 class="threat-name">Man-in-the-middle (MITM)</h3>
+          <p class="threat-desc">Enable ARP spoofing detection. Enforce HTTPS and TLS 1.3 for all device APIs. Alert on unexpected certificate changes in local traffic.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-top">
+            <span class="threat-dot dot-medium"></span>
+            <span class="threat-sev-label">Medium</span>
+          </div>
+          <h3 class="threat-name">Firmware tampering</h3>
+          <p class="threat-desc">Cryptographic hash verification before every update. Store expected hashes in a tamper-evident log. Alert if any mismatch is detected.</p>
+        </div>
+
+        <div class="threat-card">
+          <div class="threat-top">
+            <span class="threat-dot dot-medium"></span>
+            <span class="threat-sev-label">Medium</span>
+          </div>
+          <h3 class="threat-name">Anomalous data exfiltration</h3>
+          <p class="threat-desc">Baseline normal traffic volumes per device. Alert if a thermostat uploads &gt;10 MB/day. Use ML-based traffic classification.</p>
+        </div>
+
+      </div><!-- /.threat-grid -->
+
+      <!-- Response pipeline -->
+      <div class="pipeline-section">
+        <h2 class="section-heading">Automated response pipeline</h2>
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <div class="pipeline-num">01</div>
+            <div class="pipeline-label">Detect anomaly</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">02</div>
+            <div class="pipeline-label">Classify severity</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">03</div>
+            <div class="pipeline-label">Isolate device</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">04</div>
+            <div class="pipeline-label">Alert homeowner</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">05</div>
+            <div class="pipeline-label">Log &amp; remediate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live simulator -->
+      <div class="simulator">
+        <div class="sim-header">
+          <div class="sim-title-row">
+            <span class="sim-live-dot"></span>
+            <h2 class="section-heading">Live network monitor</h2>
+          </div>
+          <div class="sim-device-count">14 devices online</div>
+        </div>
+        <div class="sim-buttons">
+          <button class="sim-btn" onclick="simEvent('portscan')">Simulate port scan</button>
+          <button class="sim-btn" onclick="simEvent('brute')">Simulate brute force</button>
+          <button class="sim-btn" onclick="simEvent('exfil')">Simulate exfiltration</button>
+          <button class="sim-btn sim-btn-ok" onclick="simEvent('ok')">Normal traffic</button>
+          <button class="sim-btn sim-btn-clear" onclick="clearLog()">Clear log</button>
+          <button class="sim-btn sim-btn-download" onclick="downloadLogs()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download Logs
+          </button>
+        </div>
+        <div class="sim-log" id="sim-log">
+          <div class="log-entry">
+            <span class="log-time" id="init-time"></span>
+            <span class="log-ok">[OK] Network monitor initialised — watching 14 devices</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         SECTION C — DEVICE MANAGEMENT
+    ═════════════════════════════════════════════════ -->
+    <section id="sec-devices" class="section">
+      <div class="device-header">
+        <h2 class="section-heading">Connected Devices</h2>
+        <button class="btn-primary" onclick="addMockDevice()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Add Device
+        </button>
+      </div>
+
+      <div class="device-table-wrapper">
+        <table class="device-table">
+          <thead>
+            <tr>
+              <th>Device Name</th>
+              <th>IP Address</th>
+              <th>MAC Address</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="device-list">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════
+         SECTION D — USER EDUCATION
+    ═════════════════════════════════════════════════ -->
+    <section id="sec-education" class="section">
+
+      <!-- Sub-tabs -->
+      <div class="edu-tabs">
+        <button class="edu-tab active" onclick="showEduTab('guidelines', this)">Setup guidelines</button>
+        <button class="edu-tab" onclick="showEduTab('modules', this)">Training modules</button>
+        <button class="edu-tab" onclick="showEduTab('advisories', this)">Security advisories</button>
+      </div>
+
+      <!-- ── GUIDELINES ───────────────────────── -->
+      <div class="edu-panel active" id="edu-guidelines">
+        <p class="edu-intro">Tick off each item as you complete it. Track your security setup progress below.</p>
+
+        <div class="checklist" id="checklist">
+
+          <div class="check-item" onclick="checkItem(this)">
+            <div class="check-box" aria-label="mark complete"></div>
+            <div class="check-content">
+              <div class="check-top">
+                <span class="check-label">Change all default passwords</span>
+                <span class="priority p-critical">critical</span>
+              </div>
+              <p class="check-desc">Every router, camera, hub, and smart plug ships with public default credentials. Use a unique 16+ character password per device.</p>
+            </div>
+          </div>
+
+          <div class="check-item" onclick="checkItem(this)">
+            <div class="check-box" aria-label="mark complete"></div>
+            <div class="check-content">
+              <div class="check-top">
+                <span class="check-label">Segment your IoT network</span>
+                <span class="priority p-critical">critical</span>
+              </div>
+              <p class="check-desc">Create a separate Wi-Fi VLAN for smart devices. This stops a compromised bulb from accessing your laptop or personal files.</p>
+            </div>
+          </div>
+
+          <div class="check-item" onclick="checkItem(this)">
+            <div class="check-box" aria-label="mark complete"></div>
+            <div class="check-content">
+              <div class="check-top">
+                <span class="check-label">Enable auto-updates on all devices</span>
+                <span class="priority p-critical">critical</span>
+              </div>
+              <p class="check-desc">Most attacks exploit known, already-patched vulnerabilities. Automatic updates are the single highest-leverage security action you can take.</p>
+            </div>
+          </div>
+
+          <div class="check-item" onclick="checkItem(this)">
+            <div class="check-box" aria-label="mark complete"></div>
+            <div class="check-content">
+              <div class="check-top">
+                <span class="check-label">Activate two-factor authentication</span>
+                <span class="priority p-recommended">recommended</span>
+              </div>
+              <p class="check-desc">Enable 2FA on your Google Home, Amazon, Apple Home, and SmartThings accounts. Use an authenticator app rather than SMS.</p>
+            </div>
+          </div>
+
+          <div class="check-item" onclick="checkItem(this)">
+            <div class="check-box" aria-label="mark complete"></div>
+            <div class="check-content">
+              <div class="check-top">
+                <span class="check-label">Disable unused remote access features</span>
+                <span class="priority p-recommended">recommended</span>
+              </div>
+              <p class="check-desc">If you never control your thermostat remotely, disable that feature. Every open port is an attack surface that doesn't need to exist.</p>
+            </div>
+          </div>
+
+          <div class="check-item" onclick="checkItem(this)">
+            <div class="check-box" aria-label="mark complete"></div>
+            <div class="check-content">
+              <div class="check-top">
+                <span class="check-label">Audit cloud data permissions quarterly</span>
+                <span class="priority p-routine">routine</span>
+              </div>
+              <p class="check-desc">Review what each device uploads to vendor clouds. Revoke unnecessary permissions — especially microphone and location access.</p>
+            </div>
+          </div>
+
+          <div class="check-item" onclick="checkItem(this)">
+            <div class="check-box" aria-label="mark complete"></div>
+            <div class="check-content">
+              <div class="check-top">
+                <span class="check-label">Set up a password manager</span>
+                <span class="priority p-routine">routine</span>
+              </div>
+              <p class="check-desc">Use Bitwarden or 1Password to generate and store unique credentials for every device and cloud account securely.</p>
+            </div>
+          </div>
+
+        </div><!-- /.checklist -->
+
+        <div class="progress-section">
+          <div class="progress-bar">
+            <div class="progress-fill" id="prog-fill" style="width: 0%"></div>
+          </div>
+          <div class="progress-labels">
+            <span id="prog-text">0 of 7 complete</span>
+            <span id="prog-pct">0%</span>
+          </div>
+        </div>
+
+      </div><!-- /#edu-guidelines -->
+
+      <!-- ── MODULES ───────────────────────────── -->
+      <div class="edu-panel" id="edu-modules">
+        <div class="module-grid">
+
+          <div class="module-card">
+            <div class="module-num">01</div>
+            <h3 class="module-title">Understanding threats</h3>
+            <p class="module-desc">What attackers want, how smart home attacks work in practice, and why your devices are targets.</p>
+            <div class="module-footer">
+              <span class="module-dur">~10 min</span>
+              <span class="module-level level-beginner">Beginner</span>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-num">02</div>
+            <h3 class="module-title">Secure network setup</h3>
+            <p class="module-desc">Step-by-step router hardening, VLAN configuration, and Wi-Fi security for non-technical users.</p>
+            <div class="module-footer">
+              <span class="module-dur">~15 min</span>
+              <span class="module-level level-intermediate">Intermediate</span>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-num">03</div>
+            <h3 class="module-title">Passwords &amp; authentication</h3>
+            <p class="module-desc">Password hygiene, two-factor authentication, and using a password manager for all smart devices.</p>
+            <div class="module-footer">
+              <span class="module-dur">~8 min</span>
+              <span class="module-level level-beginner">Beginner</span>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-num">04</div>
+            <h3 class="module-title">Spotting &amp; responding to attacks</h3>
+            <p class="module-desc">Warning signs of compromise, what to do if a device is hacked, and how to recover safely.</p>
+            <div class="module-footer">
+              <span class="module-dur">~12 min</span>
+              <span class="module-level level-beginner">All levels</span>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-num">05</div>
+            <h3 class="module-title">Privacy &amp; data protection</h3>
+            <p class="module-desc">Understanding what your devices collect, cloud data risks, and how to minimise your exposure.</p>
+            <div class="module-footer">
+              <span class="module-dur">~10 min</span>
+              <span class="module-level level-beginner">Beginner</span>
+            </div>
+          </div>
+
+          <div class="module-card">
+            <div class="module-num">06</div>
+            <h3 class="module-title">Advanced hardening</h3>
+            <p class="module-desc">Network monitoring, intrusion detection, Home Assistant local mode, and traffic analysis for power users.</p>
+            <div class="module-footer">
+              <span class="module-dur">~20 min</span>
+              <span class="module-level level-advanced">Advanced</span>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /#edu-modules -->
+
+      <!-- ── ADVISORIES ────────────────────────── -->
+      <div class="edu-panel" id="edu-advisories">
+        <div class="advisory-list">
+
+          <div class="advisory">
+            <div class="adv-sev-bar bar-critical"></div>
+            <div class="adv-content">
+              <div class="adv-top">
+                <span class="adv-badge badge-critical">Critical</span>
+                <span class="adv-date">TP-Link routers</span>
+              </div>
+              <h3 class="adv-title">Mirai variant targeting TP-Link Archer routers</h3>
+              <p class="adv-body">A new Mirai variant actively scans for TP-Link Archer routers with default credentials on port 23. Update firmware to v1.0.15 or later and change the admin password immediately.</p>
+              <p class="adv-action">Action: Patch now · Affected: Archer A7, C7, C20</p>
+            </div>
+          </div>
+
+          <div class="advisory">
+            <div class="adv-sev-bar bar-warning"></div>
+            <div class="adv-content">
+              <div class="adv-top">
+                <span class="adv-badge badge-warning">Warning</span>
+                <span class="adv-date">Amazon Ring</span>
+              </div>
+              <h3 class="adv-title">Ring cameras — disable public sharing by default</h3>
+              <p class="adv-body">Ring's Neighbours feature shares footage publicly by default. Disable in Privacy Settings → Video Privacy and opt out of Amazon Sidewalk to prevent mesh network enrolment.</p>
+              <p class="adv-action">Action: Review settings · Affected: All Ring devices</p>
+            </div>
+          </div>
+
+          <div class="advisory">
+            <div class="adv-sev-bar bar-low"></div>
+            <div class="adv-content">
+              <div class="adv-top">
+                <span class="adv-badge badge-low">Low</span>
+                <span class="adv-date">Philips Hue</span>
+              </div>
+              <h3 class="adv-title">Hue bridge — update to firmware 1.60.1960054080</h3>
+              <p class="adv-body">This update patches a Zigbee buffer overflow that allows attackers within radio range to send malicious packets. Update via the Hue app under Settings → Software update.</p>
+              <p class="adv-action">Action: Update within 30 days · Affected: Hue Bridge v2</p>
+            </div>
+          </div>
+
+          <div class="advisory">
+            <div class="adv-sev-bar bar-info"></div>
+            <div class="adv-content">
+              <div class="adv-top">
+                <span class="adv-badge badge-info">Info</span>
+                <span class="adv-date">IFTTT users</span>
+              </div>
+              <h3 class="adv-title">Disable IFTTT webhooks on unused integrations</h3>
+              <p class="adv-body">Unused IFTTT applets with active webhooks remain permanently accessible. Audit and delete stale applets at ifttt.com/applets to reduce your API attack surface.</p>
+              <p class="adv-action">Action: Routine audit · Affected: All IFTTT users</p>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /#edu-advisories -->
+
+    </section><!-- /#sec-education -->
+
+  </main><!-- /.main -->
+
+  <footer class="site-footer">
+    <p>SecureHome Dashboard · Developed as part of TCS iON Cybersecurity Project · <span id="footer-year"></span></p>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
