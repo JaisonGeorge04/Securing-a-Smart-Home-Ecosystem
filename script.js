@@ -52,7 +52,6 @@ function logout() {
   window.location.href = 'login.html';
 }
 
-
 /* ── SECTION A: MAIN TAB SWITCHING ──────────────
    Called by the three main nav buttons.
    id  = 'posture' | 'threats' | 'education'
@@ -97,7 +96,6 @@ function toggleLayer(header) {
   header.classList.toggle('open');
 }
 
-
 /* ── SECTION C: EDUCATION SUB-TABS ──────────────
    Called by the three education tab buttons.
    tabId = 'guidelines' | 'modules' | 'advisories'
@@ -126,7 +124,6 @@ function showEduTab(tabId, btn) {
   // Mark the clicked tab as active
   btn.classList.add('active');
 }
-
 
 /* ── SECTION C: CHECKLIST ────────────────────────
    Called when a checklist item is clicked.
@@ -172,7 +169,6 @@ function checkItem(itemEl) {
   }
 }
 
-
 /* ── SECTION B: SECURITY CONTROLS ───────────────
    Toggle switches logic
 ─────────────────────────────────────────────────── */
@@ -185,7 +181,6 @@ function toggleControl(controlName, checkbox) {
   addLog(colorClass, `[INFO] Security Control: ${controlName.toUpperCase()} is now ${status}`);
   showToast('Control Updated', `${controlName.toUpperCase()} has been ${status}.`, isEnabled ? 'info' : 'warn');
 }
-
 
 /* ── SECTION C: DEVICE MANAGEMENT ───────────────
    Logic for handling devices
@@ -291,7 +286,6 @@ function toggleDeviceStatus(id) {
     }
   }
 }
-
 
 /* ── SECTION B: THREAT SIMULATOR ────────────────
    Adds log entries to the live monitor feed.
