@@ -1342,7 +1342,6 @@ input:checked + .toggle-slider:before {
 .toast-info {
   border-left-color: var(--blue);
 }
-
 .toast-content {
   flex: 1;
 }
