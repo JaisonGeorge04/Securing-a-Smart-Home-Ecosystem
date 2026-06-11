@@ -54,8 +54,8 @@ JavaScript — Core logic and simulation
 LocalStorage — Data and log storage
 
 📂 **Project Structure**
-index.html   → Main dashboard  
-login.html   → Login page  
-style.css    → UI styling  
-script.js    → Core logic & simulation  
-README.md    → Documentation
+index.html   → Main Dashboard.  
+login.html   → Login Page. 
+style.css    → UI Styling.  
+script.js    → Core logic & simulation.  
+README.md    → Documentation.
