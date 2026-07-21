@@ -2,7 +2,7 @@
    SMART HOME SECURITY HUB — script.js
    All interactive behaviour lives here.
 ═══════════════════════════════════════════════════ */
-
+ 
 /* ── PAGE INIT ────────────────────────────────────
    Runs once when the page has fully loaded.
 ─────────────────────────────────────────────────── */
