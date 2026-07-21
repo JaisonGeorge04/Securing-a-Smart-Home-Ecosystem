@@ -47,7 +47,7 @@ The **Smart Home Security Hub** is a web-based cybersecurity simulation project 
 •Security guidelines
 •Awareness modules for safe smart home usage
 
-🛠️ **Technologies Used**
+🛠️ **Technologies Used** 
 **HTML** — Structure
 **CSS** — Styling and UI design
 **JavaScript** — Core logic and simulation
