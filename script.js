@@ -118,7 +118,7 @@ function showEduTab(tabId, btn) {
   // Show the chosen panel
   var panel = document.getElementById('edu-' + tabId);
   if (panel) {
-    panel.classList.add('active');
+    panel.classList.add('active'); 
   }
 
   // Mark the clicked tab as active
