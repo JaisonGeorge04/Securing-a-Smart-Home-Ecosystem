@@ -5,7 +5,7 @@ The **Smart Home Security Hub** is a web-based cybersecurity simulation that sho
  
 🎯 **Objectives** 
 •Simulate a smart home environment
-•Detect and monitor potential cyber threats
+•Detect and monitor potential cyber threats 
 •Implement basic security controls
 •Provide user awareness and education
 •Demonstrate cybersecurity concepts in a practical way
