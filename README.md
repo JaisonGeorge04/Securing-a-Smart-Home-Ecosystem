@@ -35,7 +35,7 @@ Simulates common cybersecurity threats, including:
 
 ### 📁 Logging System
 - Records security events and simulated attack activities.
-- Stores logs in browser `localStorage`.
+- Stores logs in the browser's `localStorage`.
 - Allows users to download logs as a `.txt` file.
 
 ### 📡 Device Management
