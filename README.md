@@ -3,7 +3,6 @@
 ## 📌 Project Overview
 
 Smart Home Security Hub is a web-based cybersecurity simulation that shows how to monitor, secure, and manage a smart home ecosystem against potential cyber threats.
-
 The application provides a centralized dashboard to monitor connected smart devices, simulate cyberattacks, identify security risks, manage security controls, and promote cybersecurity awareness.
  
 ## 🎯 Objectives 
