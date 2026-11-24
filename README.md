@@ -68,7 +68,7 @@ Simulates common cybersecurity threats, including:
 ```text
 Smart-Home-Security-Hub/
 │
-├── index.html       # Main security dashboard
+├── index.html      # Main security dashboard
 ├── login.html      # Login page
 ├── style.css       # Application styling
 ├── script.js       # Application logic and threat simulation
